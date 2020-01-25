@@ -3,8 +3,25 @@
 <meta name="viewport" content="width=device-width">
 </head>
 <body>
-<video controls="" autoplay="" name="media">
-<source src="http://music.163.com/song/media/outer/url?id=430531.mp3" type="audio/mpeg">
-</video>
-</body>
+<div id="audioBox"> 
+<script type="text/javascript"> 
+window.onload = function(){ 
+var arr = ["http://music.163.com/song/media/outer/url?id=430531.mp3","http://music.163.com/song/media/outer/url?id=506094036.mp3","http://music.163.com/song/media/outer/url?id=1352576655.mp3","http://music.163.com/song/media/outer/url?id=527851246.mp3","http://onedrive.gimhoy.com/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBcHAzbXZWR1BCNVFoQVlqRVVQQVFSS2NQTEs1P2U9ZHE1OEx5.mp3"];//数组排列歌曲
+var myAudio = new Audio(); 
+myAudio.preload = true; 
+myAudio.controls = true; 
+myAudio.src = arr.pop();         //每次读数组最后一个元素 
+myAudio.addEventListener('ended', playEndedHandler, false); 
+myAudio.play(); 
+document.getElementById("audioBox").appendChild(myAudio); 
+myAudio.loop = false;//禁止循环，否则无法触发ended事件 
+function playEndedHandler(){ 
+myAudio.src = arr.pop(); 
+myAudio.play(); 
+console.log(arr.length); 
+!arr.length && myAudio.removeEventListener('ended',playEndedHandler,false);//只有一个元素时解除绑定 
+} 
+} 
+</script> 
+</div></body>
 </html>
